@@ -22,7 +22,14 @@ public class Locator {
         }
     }
 
-    public <T> T locate(String key, T type) throws UndefinedLocatorException {
+    public PhpClassLocatorInterface getLocatorFor(Class type) throws UndefinedLocatorException {
+        if (!locators.containsKey(type)) {
+            throw new UndefinedLocatorException("Failed to find locator for type: "+type.toString());
+        }
+        return locators.get(type);
+    }
+
+    public <T> T locate(String key, Class<T> type) throws UndefinedLocatorException {
         if (!locators.containsKey(type)) {
             throw new UndefinedLocatorException("Undefined locator for class type: "+type.toString());
         }

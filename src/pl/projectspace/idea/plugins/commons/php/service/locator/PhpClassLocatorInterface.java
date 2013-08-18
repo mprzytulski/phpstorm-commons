@@ -1,6 +1,6 @@
 package pl.projectspace.idea.plugins.commons.php.service.locator;
 
-import com.jetbrains.php.lang.psi.elements.PhpClass;
+import pl.projectspace.idea.plugins.commons.php.service.locator.exceptions.MissingElementException;
 
 import java.util.List;
 
@@ -11,6 +11,6 @@ public interface PhpClassLocatorInterface {
 
     public List<Class> getSupportedTypes();
 
-    public <T>T locate(String key);
+    public <T>T locate(String key) throws MissingElementException;
 
 }
