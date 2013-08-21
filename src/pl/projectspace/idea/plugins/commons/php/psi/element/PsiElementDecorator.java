@@ -26,4 +26,5 @@ public abstract class PsiElementDecorator {
     public PsiElement getDecoratedObject() {
         return this.element;
     }
+
 }

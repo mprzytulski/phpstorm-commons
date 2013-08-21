@@ -25,4 +25,9 @@ public abstract class PhpClassDecorator extends PsiElementDecorator {
         return (PhpClass) this.element;
     }
 
+    @Override
+    public String toString() {
+        return getDecoratedObject().getFQN();
+    }
+
 }

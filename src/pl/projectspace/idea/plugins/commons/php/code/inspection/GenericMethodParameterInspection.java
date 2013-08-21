@@ -6,7 +6,6 @@ import com.intellij.psi.PsiElementVisitor;
 import com.jetbrains.php.lang.psi.elements.MethodReference;
 import com.jetbrains.php.lang.psi.visitors.PhpElementVisitor;
 import org.jetbrains.annotations.NotNull;
-import pl.projectspace.idea.plugins.commons.php.code.validator.MethodCallValidatorInterface;
 import pl.projectspace.idea.plugins.commons.php.psi.element.MethodDecorator;
 import pl.projectspace.idea.plugins.commons.php.psi.exceptions.InvalidArgumentException;
 import pl.projectspace.idea.plugins.commons.php.psi.exceptions.MissingElementException;
@@ -15,8 +14,6 @@ import pl.projectspace.idea.plugins.commons.php.psi.exceptions.MissingElementExc
  * @author Michal Przytulski <michal@przytulski.pl>
  */
 public abstract class GenericMethodParameterInspection extends LocalInspectionTool {
-
-    protected MethodCallValidatorInterface validator;
 
     @NotNull
     @Override
