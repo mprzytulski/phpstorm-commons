@@ -4,11 +4,14 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.jetbrains.php.PhpIndex;
-import com.jetbrains.php.lang.psi.elements.*;
-import pl.projectspace.idea.plugins.commons.php.psi.exceptions.FailedToLocateContainingClassException;
-import pl.projectspace.idea.plugins.commons.php.psi.exceptions.PhpClassNotFoundException;
+import com.jetbrains.php.lang.psi.elements.MethodReference;
+import com.jetbrains.php.lang.psi.elements.PhpClass;
+import pl.projectspace.idea.plugins.commons.php.psi.exceptions.MissingElementException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -52,7 +55,7 @@ public class PsiTreeUtils {
     }
 
     /**
-     * Return PhpClass instance based on given MethodReference expression.
+     * Return PhpClass instance based on given PhpMethodReference expression.
      *
      * This method will resolve class reference to find type of response and will return PhpClass based on class name
      * stored in type
@@ -78,7 +81,7 @@ public class PsiTreeUtils {
     }
 
     /**
-     * Return class for given MethodReference expression (resolving reference)
+     * Return class for given PhpMethodReference expression (resolving reference)
      *
      * @param expression
      * @return
@@ -87,10 +90,10 @@ public class PsiTreeUtils {
         return getClass(expression, new LinkedList<String>());
     }
 
-    public PhpClass getClass(PsiElement element) throws FailedToLocateContainingClassException {
+    public PhpClass getClass(PsiElement element) throws MissingElementException {
         PhpClass phpClass = PsiTreeUtil.getParentOfType(element, PhpClass.class);
         if (phpClass == null) {
-            throw new FailedToLocateContainingClassException("Missing PhpClass as a parent for ");
+            throw new MissingElementException("Missing PhpClass as a parent for ");
         }
 
         return phpClass;

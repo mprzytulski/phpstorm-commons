@@ -5,9 +5,7 @@ import com.jetbrains.php.lang.psi.elements.PhpClass;
 /**
  * @author Michal Przytulski <michal@przytulski.pl>
  */
-abstract public class PhpClassDecorator {
-
-    protected PhpClass phpClass;
+public abstract class PhpClassDecorator extends PsiElementDecorator {
 
     /**
      * Create PhpClass decorator
@@ -15,7 +13,7 @@ abstract public class PhpClassDecorator {
      * @param phpClass
      */
     public PhpClassDecorator(PhpClass phpClass) {
-        this.phpClass = phpClass;
+        super(phpClass);
     }
 
     /**
@@ -24,6 +22,7 @@ abstract public class PhpClassDecorator {
      * @return
      */
     public PhpClass getDecoratedObject() {
-        return this.phpClass;
+        return (PhpClass) this.element;
     }
+
 }

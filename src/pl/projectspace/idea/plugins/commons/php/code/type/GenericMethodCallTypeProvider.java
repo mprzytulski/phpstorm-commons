@@ -3,17 +3,15 @@ package pl.projectspace.idea.plugins.commons.php.code.type;
 import com.intellij.openapi.project.DumbService;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
-import com.intellij.util.xml.ui.PsiTypePanel;
 import com.jetbrains.php.PhpIndex;
 import com.jetbrains.php.lang.psi.elements.MethodReference;
 import com.jetbrains.php.lang.psi.elements.PhpClass;
 import com.jetbrains.php.lang.psi.elements.PhpNamedElement;
 import com.jetbrains.php.lang.psi.resolve.types.PhpTypeProvider2;
 import org.jetbrains.annotations.Nullable;
-import pl.projectspace.idea.plugins.commons.php.code.resolver.NamedObjectResolverInterface;
-import pl.projectspace.idea.plugins.commons.php.code.validator.MethodCallValidatorInterface;
-import pl.projectspace.idea.plugins.commons.php.psi.exceptions.InvalidMethodArgumentsException;
-import pl.projectspace.idea.plugins.commons.php.service.locator.exceptions.MissingElementException;
+import pl.projectspace.idea.plugins.commons.php.psi.element.MethodDecorator;
+import pl.projectspace.idea.plugins.commons.php.psi.exceptions.InvalidArgumentException;
+import pl.projectspace.idea.plugins.commons.php.psi.exceptions.MissingElementException;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,15 +19,7 @@ import java.util.Collection;
 /**
  * @author Michal Przytulski <michal@przytulski.pl>
  */
-public class GenericMethodCallTypeProvider implements PhpTypeProvider2 {
-
-    protected MethodCallValidatorInterface validator;
-    protected NamedObjectResolverInterface resolver;
-
-    public GenericMethodCallTypeProvider(MethodCallValidatorInterface validator, NamedObjectResolverInterface resolver) {
-        this.validator = validator;
-        this.resolver = resolver;
-    }
+public abstract class GenericMethodCallTypeProvider implements PhpTypeProvider2 {
 
     @Override
     public char getKey() {
@@ -43,15 +33,11 @@ public class GenericMethodCallTypeProvider implements PhpTypeProvider2 {
             return null;
         }
 
-        MethodReference methodReference = (MethodReference) element;
-
-        if (!validator.isValidDeclaration(methodReference)) {
-            return null;
-        }
-
         try {
-            return resolver.resolve(methodReference);
-        } catch (InvalidMethodArgumentsException e) {
+            MethodDecorator method = (MethodDecorator) getMethod((MethodReference) element);
+
+            return method.getReturnType().toString();
+        } catch (InvalidArgumentException e) {
             return null;
         } catch (MissingElementException e) {
             return null;
@@ -72,4 +58,6 @@ public class GenericMethodCallTypeProvider implements PhpTypeProvider2 {
 
         return Arrays.asList(phpClass);
     }
+
+    protected abstract Object getMethod(MethodReference method) throws InvalidArgumentException, MissingElementException;
 }

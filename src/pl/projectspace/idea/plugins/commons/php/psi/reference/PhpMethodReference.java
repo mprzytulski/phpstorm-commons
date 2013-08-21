@@ -12,12 +12,12 @@ import org.jetbrains.annotations.Nullable;
 /**
  * @author Michal Przytulski <michal@przytulski.pl>
  */
-public class MethodReference implements PsiReference {
+public class PhpMethodReference implements PsiReference {
 
     protected PsiElement method;
     protected PsiElement name;
 
-    public MethodReference(@NotNull Method method, @NotNull final PsiElement name) {
+    public PhpMethodReference(@NotNull Method method, @NotNull final PsiElement name) {
         this.method = method;
         this.name = name;
     }

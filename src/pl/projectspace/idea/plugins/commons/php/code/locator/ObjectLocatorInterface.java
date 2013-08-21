@@ -1,6 +1,6 @@
 package pl.projectspace.idea.plugins.commons.php.code.locator;
 
-import pl.projectspace.idea.plugins.commons.php.service.locator.exceptions.MissingElementException;
+import pl.projectspace.idea.plugins.commons.php.psi.exceptions.MissingElementException;
 
 /**
  * @author Michal Przytulski <michal@przytulski.pl>
