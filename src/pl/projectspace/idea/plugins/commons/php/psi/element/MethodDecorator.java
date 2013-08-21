@@ -39,7 +39,7 @@ public abstract class MethodDecorator {
     }
 
     public boolean hasParameter(int no, Class type) {
-        return (hasParameter(no) && element.getParameters()[no].getClass().isInstance(type));
+        return (hasParameter(no) && type.isAssignableFrom(element.getParameters()[no].getClass()));
     }
 
     public PsiElement getParameter(int no) {
