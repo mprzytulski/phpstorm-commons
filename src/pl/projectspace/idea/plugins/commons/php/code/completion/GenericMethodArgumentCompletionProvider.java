@@ -29,4 +29,6 @@ public abstract class GenericMethodArgumentCompletionProvider extends Completion
     }
 
     protected abstract List<String> getCompletions(MethodReference method);
+
+    protected abstract boolean isEnabled();
 }

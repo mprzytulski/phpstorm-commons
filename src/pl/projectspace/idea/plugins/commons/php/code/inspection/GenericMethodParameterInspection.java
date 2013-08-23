@@ -32,6 +32,10 @@ public abstract class GenericMethodParameterInspection extends LocalInspectionTo
         @Override
         public void visitPhpMethodReference(MethodReference methodReference) {
 
+            if (!isEnabled()) {
+                return;
+            }
+
             MethodDecorator method = null;
             try {
                 method = createDecoratedMethod(methodReference);
@@ -53,5 +57,7 @@ public abstract class GenericMethodParameterInspection extends LocalInspectionTo
     protected abstract MethodDecorator createDecoratedMethod(MethodReference reference) throws MissingElementException, InvalidArgumentException;
 
     protected abstract void registerProblem(ProblemsHolder holder, MethodDecorator element);
+
+    protected abstract boolean isEnabled();
 
 }
