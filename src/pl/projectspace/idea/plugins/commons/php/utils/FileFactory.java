@@ -1,5 +1,6 @@
 package pl.projectspace.idea.plugins.commons.php.utils;
 
+import com.intellij.ide.actions.OpenFileAction;
 import com.intellij.ide.fileTemplates.FileTemplate;
 import com.intellij.ide.fileTemplates.FileTemplateManager;
 import com.intellij.openapi.fileTypes.FileType;
@@ -62,7 +63,9 @@ public class FileFactory {
 
             PsiDirectory directory = file.getManager().findDirectory(dir);
 
-            directory.add(file);
+            PsiFile newFile = (PsiFile) directory.add(file);
+
+            OpenFileAction.openFile(newFile.getVirtualFile(), project);
         }
     }
 
