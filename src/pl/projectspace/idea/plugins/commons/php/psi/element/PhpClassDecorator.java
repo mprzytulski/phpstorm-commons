@@ -1,6 +1,7 @@
 package pl.projectspace.idea.plugins.commons.php.psi.element;
 
 import com.jetbrains.php.lang.psi.elements.PhpClass;
+import pl.projectspace.idea.plugins.commons.php.ProjectComponent;
 
 /**
  * @author Michal Przytulski <michal@przytulski.pl>
@@ -25,9 +26,15 @@ public abstract class PhpClassDecorator extends PsiElementDecorator {
         return (PhpClass) this.element;
     }
 
+    public <T> T getService(Class<T> service) {
+        return getComponent().getService(service);
+    }
+
     @Override
     public String toString() {
         return getDecoratedObject().getFQN();
     }
+
+    protected abstract ProjectComponent getComponent();
 
 }
