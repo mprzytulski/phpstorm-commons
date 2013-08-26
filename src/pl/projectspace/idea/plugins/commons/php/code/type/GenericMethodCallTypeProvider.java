@@ -23,12 +23,7 @@ import java.util.Collections;
 /**
  * @author Michal Przytulski <michal@przytulski.pl>
  */
-public abstract class GenericMethodCallTypeProvider implements PhpTypeProvider2 {
-
-    @Override
-    public char getKey() {
-        return 192;
-    }
+public abstract class GenericMethodCallTypeProvider extends GenericTypeProvider {
 
     @Nullable
     @Override
@@ -50,24 +45,6 @@ public abstract class GenericMethodCallTypeProvider implements PhpTypeProvider2 
         } catch (MissingElementException e) {
             return null;
         }
-    }
-
-    /**
-     * Return context instance for given expression - FQN
-     *
-     * @param expression
-     * @param project
-     * @return
-     */
-    @Override
-    public Collection<? extends PhpNamedElement> getBySignature(String expression, Project project) {
-        PhpClass phpClass = ServiceManager.getService(project, PsiTreeUtils.class).getClassByFQN(expression);
-
-        if (phpClass == null) {
-            return Collections.emptyList();
-        }
-
-        return Arrays.asList(phpClass);
     }
 
     protected abstract Object getMethod(MethodReference method) throws InvalidArgumentException, MissingElementException;
