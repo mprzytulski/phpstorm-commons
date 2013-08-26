@@ -6,6 +6,7 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.psi.PsiDirectory;
+import com.intellij.psi.PsiFile;
 
 /**
  * @author Michal Przytulski <michal@przytulski.pl>
@@ -27,6 +28,12 @@ public abstract class DirectoryAction extends AnAction {
     }
 
     protected String getRelativeDirectory() {
+        PsiDirectory selected = getSelectedDirectory();
+
+        if (selected == null) {
+
+        }
+
         return getSelectedDirectory().getVirtualFile().getPath().replace(project.getBasePath(), "");
     }
 
@@ -35,6 +42,12 @@ public abstract class DirectoryAction extends AnAction {
         PsiDirectory[] selected = view.getCurrentProjectViewPane().getSelectedDirectories();
 
         if (selected.length == 0) {
+            Object[] elements = view.getCurrentProjectViewPane().getSelectedElements();
+            for (Object element : elements) {
+                if (element instanceof PsiFile) {
+                    return ((PsiFile) element).getContainingDirectory();
+                }
+            }
             return null;
         }
 
