@@ -9,7 +9,7 @@ abstract public class GenericObjectLocator implements ObjectLocatorInterface {
 
     protected PhpIndex index;
 
-    protected GenericObjectLocator(PhpIndex index) {
+    public GenericObjectLocator(PhpIndex index) {
         this.index = index;
     }
 }

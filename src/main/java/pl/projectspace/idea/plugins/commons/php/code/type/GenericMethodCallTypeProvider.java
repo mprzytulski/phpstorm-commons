@@ -27,7 +27,7 @@ public abstract class GenericMethodCallTypeProvider extends GenericTypeProvider 
 
     @Nullable
     @Override
-    public String getType(PsiElement element) {
+    public String getTypeFor(PsiElement element) {
         if (DumbService.isDumb(element.getProject()) || !(element instanceof MethodReference)) {
             return null;
         }

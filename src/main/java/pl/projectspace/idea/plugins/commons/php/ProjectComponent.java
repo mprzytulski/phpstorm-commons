@@ -47,4 +47,8 @@ public class ProjectComponent implements com.intellij.openapi.components.Project
     public <T>T getService(@NotNull Class<T> service) {
         return (T) ServiceManager.getService(project, service);
     }
+
+    public Project getProject() {
+        return project;
+    }
 }

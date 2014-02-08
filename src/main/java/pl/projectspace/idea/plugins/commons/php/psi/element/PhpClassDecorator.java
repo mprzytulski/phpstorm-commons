@@ -35,6 +35,8 @@ public abstract class PhpClassDecorator extends PsiElementDecorator {
         return getDecoratedObject().getFQN();
     }
 
+    public abstract boolean hasRelatedClass();
+
     protected abstract ProjectComponent getComponent();
 
 }
